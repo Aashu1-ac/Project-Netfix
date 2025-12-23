@@ -1,68 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Netflix Clone</title>
-  <link rel="stylesheet" href="/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netflix Clone Responsive</title>
+
+<style>
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  background:#111;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 40px;
+  background:black;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.logo{
+  color:#e50914;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.search-box{
+  background:#222;
+  border:1px solid #555;
+  padding:6px 10px;
+  color:white;
+  width:220px;
+  max-width:100%;
+}
+
+.profile{
+  width:34px;
+  height:34px;
+  background:#e50914;
+  border-radius:4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+/* ================= BANNER ================= */
+.banner{
+  min-height:60vh;
+  background:url("https://wallpapercave.com/wp/wp4056410.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  padding:40px;
+}
+
+.banner-content{
+  max-width:520px;
+}
+
+.banner h1{
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.banner p{
+  font-size:18px;
+  margin-bottom:20px;
+  color:#ddd;
+}
+
+.banner button{
+  padding:10px 22px;
+  border:none;
+  font-size:16px;
+  margin-right:10px;
+  cursor:pointer;
+}
+
+.play{background:white;color:black;}
+.info{background:rgba(109,109,110,0.7);color:white;}
+
+/* ================= MOVIE ROWS ================= */
+.row{
+  margin:30px 40px;
+}
+
+.row h2{
+  margin-bottom:12px;
+  font-size:20px;
+}
+
+.movies{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding-bottom:10px;
+  scroll-behavior:smooth;
+}
+
+.movies::-webkit-scrollbar{
+  height:6px;
+}
+
+.movies::-webkit-scrollbar-thumb{
+  background:#444;
+  border-radius:10px;
+}
+
+.movie{
+  flex:0 0 auto;
+  width:180px;
+  height:260px;
+  background-size:cover;
+  background-position:center;
+  border-radius:6px;
+  transition:transform 0.3s ease;
+}
+
+.movie:hover{
+  transform:scale(1.1);
+}
+
+/* Originals Bigger */
+.originals .movie{
+  width:220px;
+  height:320px;
+}
+
+/* ================= DOWNLOAD APP ================= */
+.download-app{
+  margin:50px 40px;
+  padding:30px;
+  background:#000;
+  border-radius:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.store-buttons a{
+  padding:12px 18px;
+  background:#e50914;
+  color:white;
+  text-decoration:none;
+  border-radius:5px;
+  margin-right:10px;
+  display:inline-block;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:black;
+  padding:40px;
+  margin-top:40px;
+  color:#aaa;
+}
+
+.footer-links{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:14px;
+}
+
+.footer-links a{
+  color:#aaa;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.footer-links a:hover{
+  text-decoration:underline;
+}
+
+.footer-bottom{
+  margin-top:20px;
+  font-size:14px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:900px){
+  .banner h1{font-size:36px;}
+}
+
+@media (max-width:600px){
+  .navbar{
+    padding:10px 20px;
+  }
+
+  .banner{
+    padding:30px 20px;
+    min-height:auto;
+  }
+
+  .banner h1{
+    font-size:26px;
+  }
+
+  .banner p{
+    font-size:14px;
+  }
+
+  .row{
+    margin:20px;
+  }
+
+  .movie{
+    width:140px;
+    height:200px;
+  }
+
+  .originals .movie{
+    width:170px;
+    height:250px;
+  }
+
+  .download-app{
+    margin:30px 20px;
+  }
+}
+</style>
 </head>
+
 <body>
-  <!--header-->  
-  <header class="site-header" aria-label="Main navigation">
-    <div class="container header-inner">
-      <div class="logo" aria-label="Site logo">
-        <span class="logo-text">N</span><span class="logo-text light">etflix</span>
-      </div>
 
-      <nav class="nav" aria-label="Primary">
-        <a href="#" class="nav-link active">Home</a>
-        <a href="#" class="nav-link">TV Shows</a>
-        <a href="#" class="nav-link">Movies</a>
-        <a href="#" class="nav-link">New &amp; Popular</a>
-        <a href="#" class="nav-link">My List</a>
-      </nav>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">NETFLIX</div>
+  <input class="search-box" placeholder="Search">
+  <div class="profile">A</div>
+</div>
 
-      <div class="user-actions">
-        <button class="btn small" aria-label="Search">Search</button>
-        <button class="btn small" aria-label="Account">Account</button>
-      </div>
-    </div>
-  </header>
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-content">
+    <h1>Stranger Things</h1>
+    <p>When a young boy disappears, a small town uncovers a mystery.</p>
+    <button class="play">▶ Play</button>
+    <button class="info">More Info</button>
+  </div>
+</div>
 
-  <!-- Hero section -->
-  <section class="hero" aria-label="Hero banner">
-    <div class="container hero-content">
-      <h1 class="hero-title">Unlimited movies, TV shows and more.</h1>
-      <p class="hero-sub">Watch anywhere. Cancel anytime.</p>
-      <div class="hero-actions">
-        <button class="btn primary" aria-label="Get started">Get Started</button>
-        <button class="btn" aria-label="Learn more">Learn more</button>
-      </div>
-    </div>
-  </section>
+<!-- TRENDING -->
+<div class="row">
+  <h2>Trending Now</h2>
+  <div class="movies">
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/rTh4K5uw9HypmpGslcKd4QfHl93.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg')"></div>
+    <div class="movie" style="background-image:url(https://e1.pxfuel.com/desktop-wallpaper/307/578/desktop-wallpaper-no-strings-attached.jpg)"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg')"></div>
+  </div>
+</div>
 
-  <!-- Main content rows -->
-  <main class="content" aria-label="Content rows">
-    <!-- Row 1 -->
-    <section class="row" aria-label="Trending Now">
-      <div class="container">
-        <h2 class="row-title">Trending Now</h2>
-        <div class="card-strip">
-          <article class="card">
-            <img src="https://via.placeholder.com/240x340?text=Poster+1" alt="Trending movie 1" />
-            <div class="card-info">
-              <h3 class="card-title">Movie 1</h3>
-              <p class="card-sub">2024 • U/A 13+</p>
-            </div>
-          </article>
+<!-- ORIGINALS -->
+<div class="row originals">
+  <h2>Netflix Originals</h2>
+  <div class="movies">
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/lXhgCODAbBXL5buk9yEmTpOoOgR.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/34nDCQZwaEvsy4CFO5hkGRFDCVU.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg')"></div>
+    <div class="movie" style="background-image:url(https://fr.web.img5.acsta.net/pictures/22/02/16/09/51/4724820.jpg)"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg')"></div>
+  </div>
+</div>
 
-          <article class="card">
-            <img src="https://via.placeholder.com/240x340?text=Poster+2" alt="Trending movie 2" />
-            <div class="card-info">
-              <h3 class="card-title">Movie 2</h3>
-              <p class="card-sub">2023 • U/A 16+</p>
-            </div>
-          </article>
 
-          <article class="card">
-            <img src="https://via.placeholder.com/240x340?text=Poster+3" alt="Trending movie
+</div>
+<!-- BINGEWORTHY DRAMA -->
+<div class="row">
+  <h2>Bingeworthy Drama</h2>
+  <div class="movies">
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/34nDCQZwaEvsy4CFO5hkGRFDCVU.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/lXhgCODAbBXL5buk9yEmTpOoOgR.jpg')"></div>
+    <div class="movie" style="background-image:url(https://assets.mycast.io/posters/the-kissing-booth-90s-fan-casting-poster-72372-medium.jpg?1608345133)"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg')"></div>
+    <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg')"></div>
+  </div>
+</div>
+
+<!-- DOWNLOAD APP -->
+<div class="download-app">
+  <div>
+    <h2>Download Netflix App</h2>
+    <p>Watch offline on your device</p>
+  </div>
+  <div class="store-buttons">
+    <a href="https://play.google.com/store/apps/details?id=com.netflix.mediaclient" target="_blank">📱 Android</a>
+    <a href="https://apps.apple.com/app/netflix/id363590051" target="_blank">🍎 iPhone</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#">FAQ</a>
+    <a href="#">Help Centre</a>
+    <a href="#">Account</a>
+    <a href="#">Media Centre</a>
+    <a href="#">Jobs</a>
+    <a href="#">Ways to Watch</a>
+    <a href="#">Terms</a>
+    <a href="#">Privacy</a>
+  </div>
+  <div class="footer-bottom">Netflix India</div>
+</footer>
+
+</body>
+</html>
